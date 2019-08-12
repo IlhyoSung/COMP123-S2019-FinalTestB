@@ -5,11 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ Student Name:
+ Student ID:
+ Description: This is the 
+ */
+
 namespace COMP123_S2019_FinalTestB
 {
     static class Program
     {
-        // temporary
         public static CharacterGeneratorForm characterForm;
         
         /// <summary>
