@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -21,6 +22,7 @@ namespace COMP123_S2019_FinalTestB.Views
 
         string[] FirstNameList;
         string[] LastNameList;
+        string[] InventoryList;
 
         public CharacterGeneratorForm()
         {
@@ -51,25 +53,37 @@ namespace COMP123_S2019_FinalTestB.Views
         /// <summary>
         /// This is for loading names
         /// </summary>
-        private void LoadSkills()
+        private void LoadInventory()
         {
-            SkillsList = File.ReadAllLines("..\\..\\Data\\skills.txt");
+            InventoryList = File.ReadAllLines("..\\..\\Data\\inventory.txt");
         }
 
         /// <summary>
         /// This is for loading names
         /// </summary>
-        private void GenerateRandomSkills()
+        private void GenerateRandomInventory()
         {
-            Program.character.Skills[0] = SkillsList[random.Next(SkillsList.Length)];
-            Program.character.Skills[1] = SkillsList[random.Next(SkillsList.Length)];
-            Program.character.Skills[2] = SkillsList[random.Next(SkillsList.Length)];
-            Program.character.Skills[3] = SkillsList[random.Next(SkillsList.Length)];
+            try {
+                Program.character.Inventory[0] = InventoryList[random.Next(InventoryList.Length)];
+                Program.character.Inventory[1] = InventoryList[random.Next(InventoryList.Length)];
+                Program.character.Inventory[2] = InventoryList[random.Next(InventoryList.Length)];
+                Program.character.Inventory[3] = InventoryList[random.Next(InventoryList.Length)];
 
-            SkillFirstlabel.Text = Program.character.Skills[0];
-            SkillSecondlabel.Text = Program.character.Skills[1];
-            SkillThirdlabel.Text = Program.character.Skills[2];
-            SkillFourthlabel.Text = Program.character.Skills[3];
+                FirstItemLabel.Text = Program.character.Inventory[0];
+                SecondItemLabel.Text = Program.character.Inventory[1];
+                ThirdItemLabel.Text = Program.character.Inventory[2];
+                FourthItemLabel.Text = Program.character.Inventory[3];
+            }
+            catch (IOException exception)  
+            {
+                Debug.WriteLine("ERROR: " + exception.Message);
+            }
+
+            
+        }
+        private void GenerateInventoryButton_Click(object sender, EventArgs e)
+        {
+            GenerateRandomInventory();
         }
 
         /// <summary>
@@ -95,7 +109,7 @@ namespace COMP123_S2019_FinalTestB.Views
             if (MainTabControl.SelectedIndex < MainTabControl.TabPages.Count - 1)
             {
                 MainTabControl.SelectedIndex++;
-            }
+            }           
         }
 
         /// <summary>
@@ -116,6 +130,8 @@ namespace COMP123_S2019_FinalTestB.Views
         {
             LoadNames();
             GenerateNames();
+            LoadInventory();
+            GenerateRandomInventory();            
         }
 
         private void GenerateAbilitiesButton_Click(object sender, EventArgs e)
@@ -138,6 +154,145 @@ namespace COMP123_S2019_FinalTestB.Views
             int charisma = random.Next(3, 19);
             Program.character.Charisma = charisma.ToString();
             CharismaDataLabel.Text = Program.character.Charisma;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // configure the file dialog
+            CharaterSheetSaveFileDialog.FileName = "Character.txt";
+            CharaterSheetSaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+            CharaterSheetSaveFileDialog.Filter = "Text Files (*.txt)|*.txt| All Files (*.*)|*.*";
+
+            // open the file dialog
+            var result = CharaterSheetSaveFileDialog.ShowDialog();
+            if (result != DialogResult.Cancel)
+            {
+                // open the stream for writing
+                using (StreamWriter outputStream = new StreamWriter(
+                    File.Open(CharaterSheetSaveFileDialog.FileName, FileMode.Create)))
+                {
+                    // write content - string type - to the file
+                    outputStream.WriteLine(Program.character.FirstName);
+                    outputStream.WriteLine(Program.character.LastName);
+                    outputStream.WriteLine(Program.character.Strength);
+                    outputStream.WriteLine(Program.character.Dexterity);
+                    outputStream.WriteLine(Program.character.Constitution);
+                    outputStream.WriteLine(Program.character.Intelligence);
+                    outputStream.WriteLine(Program.character.Wisdom);
+                    outputStream.WriteLine(Program.character.Charisma);
+                    outputStream.WriteLine(Program.character.Inventory[0]);
+                    outputStream.WriteLine(Program.character.Inventory[1]);
+                    outputStream.WriteLine(Program.character.Inventory[2]);
+                    outputStream.WriteLine(Program.character.Inventory[3]);
+                                        
+                    // cleanup
+                    outputStream.Close();
+                    outputStream.Dispose();
+
+                    // give feedback to the user that the file has been saved
+                    // this is a "modal" form
+                    MessageBox.Show("File Saved...", "Saving File...",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // configure the file dialog
+            CharaterSheetOpenFileDialog.FileName = "Character.txt";
+            CharaterSheetOpenFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+            CharaterSheetOpenFileDialog.Filter = "Text Files (*.txt)|*.txt| All Files (*.*)|*.*";
+
+            // open the file dialog
+            var result = CharaterSheetOpenFileDialog.ShowDialog();
+            if (result != DialogResult.Cancel)
+            {
+                try
+                {
+                    // Open the  streawm for reading
+                    using (StreamReader inputStream = new StreamReader(
+                        File.Open(CharaterSheetOpenFileDialog.FileName, FileMode.Open)))
+                    {
+                        // read from the file
+                        Program.character.FirstName = inputStream.ReadLine();
+                        Program.character.LastName = inputStream.ReadLine();
+                        Program.character.Strength = inputStream.ReadLine();
+                        Program.character.Dexterity = inputStream.ReadLine();
+                        Program.character.Constitution = inputStream.ReadLine();
+                        Program.character.Intelligence = inputStream.ReadLine();
+                        Program.character.Wisdom = inputStream.ReadLine();
+                        Program.character.Charisma = inputStream.ReadLine();
+                        Program.character.Inventory[0] = inputStream.ReadLine();
+                        Program.character.Inventory[1] = inputStream.ReadLine();
+                        Program.character.Inventory[2] = inputStream.ReadLine();
+                        Program.character.Inventory[3] = inputStream.ReadLine();
+                      
+                        // cleanup
+                        inputStream.Close();
+                        inputStream.Dispose();
+
+
+                    }
+
+                    CharacterSheetFirstNameDataLabel.Text = Program.character.FirstName;
+                    CharacterSheetLastNameDataLabel.Text = Program.character.LastName;
+                    CharacterSheetStrengthDataLabel.Text = Program.character.Strength;
+                    CharacterSheetDexerityDataLabel.Text = Program.character.Dexterity;
+                    CharacterSheetConstitutionDataLabel.Text = Program.character.Constitution;
+                    CharacterSheetIntelligenceDataLabel.Text = Program.character.Intelligence;
+                    CharacterSheetWisdomDataLabel.Text = Program.character.Wisdom;
+                    CharacterSheetCharismaDataLabel.Text = Program.character.Charisma;
+                    CharacterSheetFirstItemDataLabel.Text = Program.character.Inventory[0];
+                    CharacterSheetSecondItemDataLabel.Text = Program.character.Inventory[1];
+                    CharacterSheetThirdItemDataLabel.Text = Program.character.Inventory[2];
+                    CharacterSheetFourthItemDataLabel.Text = Program.character.Inventory[3];                    
+                }
+                catch (IOException exception)
+                {
+
+                    Debug.WriteLine("ERROR: " + exception.Message);
+
+                    MessageBox.Show("ERROR: " + exception.Message, "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (FormatException exception)
+                {
+                    Debug.WriteLine("ERROR: " + exception.Message);
+
+                    MessageBox.Show("ERROR: " + exception.Message + "\n\nPlease select the appropriate file type", "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.aboutForm.ShowDialog();
+        }
+
+        private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MainTabControl.SelectedIndex == 3)
+            {
+                CharacterSheetFirstNameDataLabel.Text = Program.character.FirstName;
+                CharacterSheetLastNameDataLabel.Text = Program.character.LastName;
+                CharacterSheetStrengthDataLabel.Text = Program.character.Strength;
+                CharacterSheetDexerityDataLabel.Text = Program.character.Dexterity;
+                CharacterSheetConstitutionDataLabel.Text = Program.character.Constitution;
+                CharacterSheetIntelligenceDataLabel.Text = Program.character.Intelligence;
+                CharacterSheetWisdomDataLabel.Text = Program.character.Wisdom;
+                CharacterSheetCharismaDataLabel.Text = Program.character.Charisma;
+                CharacterSheetFirstItemDataLabel.Text = Program.character.Inventory[0];
+                CharacterSheetSecondItemDataLabel.Text = Program.character.Inventory[1];
+                CharacterSheetThirdItemDataLabel.Text = Program.character.Inventory[2];
+                CharacterSheetFourthItemDataLabel.Text = Program.character.Inventory[3];
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
