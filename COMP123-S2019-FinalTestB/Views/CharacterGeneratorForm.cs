@@ -8,8 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 /*
- Student Name:
- Student ID:
+ Student Name: Ilhyo Sung
+ Student ID: 301001793
  Description: This is the Character class used in character creation               
 */
 
