@@ -98,12 +98,46 @@ namespace COMP123_S2019_FinalTestB.Views
             }
         }
 
+        /// <summary>
+        /// This is the event handler for the GenerateButtom Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenerateNameButton_Click(object sender, EventArgs e)
         {
-            string[] firstNames = File.ReadAllLines("..\\..\\Data\\firstNames.txt");
+            //string[] firstNames = File.ReadAllLines("..\\..\\Data\\firstNames.txt");
 
-            Program.character.FirstName = firstNames[random.Next(firstNames.Length)];
-            FirstNameDataLabel.Text = Program.character.FirstName;
+            //Program.character.FirstName = firstNames[random.Next(firstNames.Length)];
+            //FirstNameDataLabel.Text = Program.character.FirstName;
+            GenerateNames();
+        }
+
+        private void CharacterGeneratorForm_Load(object sender, EventArgs e)
+        {
+            LoadNames();
+            GenerateNames();
+        }
+
+        private void GenerateAbilitiesButton_Click(object sender, EventArgs e)
+        {
+            int strength = random.Next(3, 19);
+            Program.character.Strength = strength.ToString();
+            StrengthDataLabel.Text = Program.character.Strength;
+            int dexterity = random.Next(3, 19);
+            Program.character.Dexterity = dexterity.ToString();
+            DexterityDataLabel.Text = Program.character.Dexterity;
+            int constitution = random.Next(3, 19);
+            Program.character.Constitution = constitution.ToString();
+            ConstitutionDataLabel.Text = Program.character.Constitution;
+            int intelligence = random.Next(3, 19);
+            Program.character.Intelligence = intelligence.ToString();
+            IntelligenceDataLabel.Text = Program.character.Intelligence;
+            int wisdom = random.Next(3, 19);
+            Program.character.Wisdom = wisdom.ToString();
+            WisdomDataLabel.Text = Program.character.Wisdom;
+            int charisma = random.Next(3, 19);
+            Program.character.Charisma = charisma.ToString();
+            CharismaDataLabel.Text = Program.character.Charisma;
         }
     }
 }

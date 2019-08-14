@@ -330,6 +330,7 @@
             this.GenerateAbilitiesButton.TabIndex = 5;
             this.GenerateAbilitiesButton.Text = "Generate Abilities";
             this.GenerateAbilitiesButton.UseVisualStyleBackColor = true;
+            this.GenerateAbilitiesButton.Click += new System.EventHandler(this.GenerateAbilitiesButton_Click);
             // 
             // StrengthLabel
             // 
@@ -1073,6 +1074,7 @@
             this.Controls.Add(this.NextButton);
             this.Name = "CharacterGeneratorForm";
             this.Text = "Character Generator";
+            this.Load += new System.EventHandler(this.CharacterGeneratorForm_Load);
             this.MainTabControl.ResumeLayout(false);
             this.IdentityPage.ResumeLayout(false);
             this.IdentityTableLayoutPanel.ResumeLayout(false);
