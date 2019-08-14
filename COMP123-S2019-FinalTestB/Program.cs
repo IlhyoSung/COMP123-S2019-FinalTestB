@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 /*
  Student Name: Ilhyo Sung
- Student ID: 301001793
- Description: This is the 
- */
+ Student ID: 301001793 
+ Description: This is the Program.cs
+ */ 
 
 namespace COMP123_S2019_FinalTestB
 {

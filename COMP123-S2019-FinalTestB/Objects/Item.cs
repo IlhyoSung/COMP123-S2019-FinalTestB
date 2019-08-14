@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 /*
  Student Name: Ilhyo Sung
  Student ID: 301001793
- Description: This is the Item class used for Inventory Management
+ Description: This is the Item class used for Inventory Management(will be added later)
 */
 
 namespace COMP123_S2019_FinalTestB.Objects

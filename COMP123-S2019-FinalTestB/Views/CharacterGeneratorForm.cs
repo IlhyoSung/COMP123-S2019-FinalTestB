@@ -11,7 +11,7 @@ using System.Windows.Forms;
 /*
  Student Name: Ilhyo Sung
  Student ID: 301001793
- Description: This is the Character class used in character creation               
+ Description: This is the Character Generation form
 */
 
 namespace COMP123_S2019_FinalTestB.Views
@@ -39,7 +39,7 @@ namespace COMP123_S2019_FinalTestB.Views
         }
 
         /// <summary>
-        /// This is for loading names
+        /// This is for generating names
         /// </summary>
         private void GenerateNames()
         {
@@ -51,7 +51,7 @@ namespace COMP123_S2019_FinalTestB.Views
         }
 
         /// <summary>
-        /// This is for loading names
+        /// This is for loading inventory
         /// </summary>
         private void LoadInventory()
         {
@@ -59,7 +59,7 @@ namespace COMP123_S2019_FinalTestB.Views
         }
 
         /// <summary>
-        /// This is for loading names
+        /// This is for generating inventory randomly
         /// </summary>
         private void GenerateRandomInventory()
         {
@@ -81,6 +81,12 @@ namespace COMP123_S2019_FinalTestB.Views
 
             
         }
+
+        /// <summary>
+        /// This is the event handler for GenerateInventoryButton Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenerateInventoryButton_Click(object sender, EventArgs e)
         {
             GenerateRandomInventory();
@@ -118,14 +124,15 @@ namespace COMP123_S2019_FinalTestB.Views
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GenerateNameButton_Click(object sender, EventArgs e)
-        {
-            //string[] firstNames = File.ReadAllLines("..\\..\\Data\\firstNames.txt");
-
-            //Program.character.FirstName = firstNames[random.Next(firstNames.Length)];
-            //FirstNameDataLabel.Text = Program.character.FirstName;
+        {            
             GenerateNames();
         }
 
+        /// <summary>
+        /// This is the event handler for the CharacterGeneratorForm Load event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CharacterGeneratorForm_Load(object sender, EventArgs e)
         {
             LoadNames();
@@ -134,6 +141,11 @@ namespace COMP123_S2019_FinalTestB.Views
             GenerateRandomInventory();            
         }
 
+        /// <summary>
+        /// This is the event handler for the GenerateAbilitiesButton Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenerateAbilitiesButton_Click(object sender, EventArgs e)
         {
             int strength = random.Next(3, 19);
@@ -156,6 +168,11 @@ namespace COMP123_S2019_FinalTestB.Views
             CharismaDataLabel.Text = Program.character.Charisma;
         }
 
+        /// <summary>
+        /// This is the event handler for the saveToolStripMenuItem Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // configure the file dialog
@@ -197,6 +214,11 @@ namespace COMP123_S2019_FinalTestB.Views
             }
         }
 
+        /// <summary>
+        /// This is the event handler for the openToolStripMenuItem Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // configure the file dialog
@@ -266,11 +288,21 @@ namespace COMP123_S2019_FinalTestB.Views
             }
         }
 
+        /// <summary>
+        /// This is the event handler for the aboutToolStripMenuItem Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Program.aboutForm.ShowDialog();
         }
 
+        /// <summary>
+        /// This is the event handler for the MainTabControl SelectedIndexChanged event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (MainTabControl.SelectedIndex == 3)
@@ -290,6 +322,11 @@ namespace COMP123_S2019_FinalTestB.Views
             }
         }
 
+        /// <summary>
+        /// This is the event handler for the exitToolStripMenuItem Click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();

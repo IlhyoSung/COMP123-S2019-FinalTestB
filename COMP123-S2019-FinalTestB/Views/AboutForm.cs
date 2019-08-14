@@ -9,6 +9,12 @@ using System.Windows.Forms;
 
 namespace COMP123_S2019_FinalTestB.Views
 {
+    /*
+ Student Name: Ilhyo Sung
+ Student ID: 301001793
+ Description: This is the about form
+ */
+
     public partial class AboutForm : Form
     {
         public AboutForm()
