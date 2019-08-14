@@ -77,9 +77,7 @@ namespace COMP123_S2019_FinalTestB.Views
             catch (IOException exception)  
             {
                 Debug.WriteLine("ERROR: " + exception.Message);
-            }
-
-            
+            }            
         }
 
         /// <summary>
@@ -253,8 +251,6 @@ namespace COMP123_S2019_FinalTestB.Views
                         // cleanup
                         inputStream.Close();
                         inputStream.Dispose();
-
-
                     }
 
                     CharacterSheetFirstNameDataLabel.Text = Program.character.FirstName;
